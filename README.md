@@ -4,7 +4,7 @@ Aplicação web que consome uma API pública para exibir informações sobre Pok
 
 ## Screenshot
 
-![screenshot](screenshot.png)
+![screenshot](screenshotDEMO.png)
 
 ## Tecnologias
 
@@ -17,12 +17,19 @@ Aplicação web que consome uma API pública para exibir informações sobre Pok
 
 - Buscar Pokémon por nome
 - Exibir sprite
-- Mostrar tipos e stats
+- Mostrar tipos e nº na pokedex
 
 ## Como executar
 
 1. Clone o repositório
 
+´´´
 git clone https://github.com/seuusuario/pokedex
+´´´
 
 2. Abra index.html no navegador
+
+## To Dos
+
+-Segunda parte do site que mostre todos os pokemons disponíveis da API
+-Responsividade 100% para celular
