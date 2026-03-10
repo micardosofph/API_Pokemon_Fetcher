@@ -1,4 +1,4 @@
-# Pokédex Web App
+<img width="1920" height="915" alt="image" src="https://github.com/user-attachments/assets/8df2fbc4-83ee-4ac8-bc9a-10b0893ece0b" /># Pokédex Web App
 
 Aplicação web que consome uma API pública para exibir informações sobre Pokémon.
 
@@ -23,13 +23,13 @@ Aplicação web que consome uma API pública para exibir informações sobre Pok
 
 1. Clone o repositório
 
-´´´
-git clone https://github.com/seuusuario/pokedex
-´´´
+```bash
+git clone https://github.com/micardosofph/API_Pokemon_Fetcher
+```
 
 2. Abra index.html no navegador
 
 ## To Dos
 
--Segunda parte do site que mostre todos os pokemons disponíveis da API
--Responsividade 100% para celular
+- Segunda parte do site que mostre todos os pokemons disponíveis da API
+- Responsividade 100% para celular
