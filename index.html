@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Pokémon Fetcher</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="framePrincipal"> 
+        <h1>API Pokémon Fetcher</h1>
+
+        <input type="text" id="pokemonNameInput" placeholder="Type here the name of the Pokémon" class="inputNomePokemon">
+        <button onclick="catchSpriteAndSetInHtml()" class="buttonBuscarPokemon">Search Pokémon</button>
+
+        <div class="resultados">
+            <div id="loading" class="carregando" style="display: none;"><img src="loading.svg" alt="Loading Gif" style="width: 100%;"></div>
+
+            <div id="resultadosDiv">
+                <img src="" alt="Pokémon Sprite" id="pokemonSprite" style="display: none;" class="pokemonSprite">
+                
+                <div class="informacoesImportantes">
+                    <p id="pokemonName"></p>
+                    <p id="pokemonId"></p>
+                    <p id="pokemonTypes"></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="wrapperTodosPokemons">
+            <p>All pokémons from the API</p>
+            <a href="everyPokemon.html">Click here</a>
+        </div>
+    </div>
+
+
+
+
+    <script src="scriptSpritePokemon.js"></script>
+</body>
+
+</html>
