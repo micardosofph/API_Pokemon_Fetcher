@@ -1,4 +1,4 @@
-### Aplicação web que consome uma API pública para exibir informações sobre Pokémon.
+# Aplicação web que consome uma API pública para exibir informações sobre Pokémon.
 
 ## Screenshot
 
