@@ -19,7 +19,11 @@
 - Exibir sprite
 - Mostrar tipos e nº na pokedex
 
-## Como executar
+## Como testar
+
+Acesse o link do github pages do projeto: https://micardosofph.github.io/API_Pokemon_Fetcher/index.html
+
+## Como fazer edições no código
 
 1. Clone o repositório
 
