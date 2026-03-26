@@ -9,7 +9,7 @@ const pokemonTypesAndColor = [
   },
   {
     "name": "flying",
-    "color": "https://pokeapi.co/api/v2/type/3/"
+    "color": "79A4FF"
   },
   {
     "name": "poison",
@@ -33,7 +33,7 @@ const pokemonTypesAndColor = [
   },
   {
     "name": "steel",
-    "color": "https://pokeapi.co/api/v2/type/9/"
+    "color": "#C3C0DB"
   },
   {
     "name": "fire",
@@ -53,7 +53,7 @@ const pokemonTypesAndColor = [
   },
   {
     "name": "psychic",
-    "color": "https://pokeapi.co/api/v2/type/14/"
+    "color": "#F362B1"
   },
   {
     "name": "ice",
@@ -69,7 +69,7 @@ const pokemonTypesAndColor = [
   },
   {
     "name": "fairy",
-    "color": "https://pokeapi.co/api/v2/type/18/"
+    "color": "#FAADFF"
   }
 ]
 
