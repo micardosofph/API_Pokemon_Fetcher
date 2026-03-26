@@ -8,85 +8,28 @@
     <title>Every Pokémon</title>
 </head>
 
-<body style="display: flex; flex-direction: column;">
+<body style="display: flex; flex-direction: column; justify-content: normal;">
 
     <h1>Every Pokémon from the PokéAPI</h1>
     <div class="framePrincipalEveryPokemon">
 
-        <div class="gridPokemons">
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
+        <div class="grid-container">
+            <div class="gridPokemons" id="pokemonGrid">
+                <div class="pokemonGrid">
+                    <img src="" alt=´Imagem de ${pokemon.name}´>
+                    <div class="pokemonGrid-informacoes">
+                        <p>Pikachu</p>
+                        <p>Nº: 55</p>
+                        <p>Tipo: elétrico e veneno</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
-                </div>
+            <div class="pagination">
+                <button id="prevBtn" onclick="changePage(-1)">Previous</button>
+                <span id="pageIndicator">Page 1</span>
+                <button id="nextBtn" onclick="changePage(1)">Next</button>
             </div>
-
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
-                </div>
-            </div>
-
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
-                </div>
-            </div>
-
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
-                </div>
-            </div>
-
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
-                </div>
-            </div>
-
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
-                </div>
-            </div>
-
-            <div class="pokemonGrid">
-                <img src="" alt=´Imagem de ${pokemon.name}´>
-                <div class="pokemonGrid-informacoes">
-                    <p>Pikachu</p>
-                    <p>Nº: 55</p>
-                    <p>Tipo: elétrico e veneno</p>
-            </div>
-            
         </div>
-
 
         <div class="wrapperTodosPokemons">
             <p>Go back to the Pokémon Fetcher</p>

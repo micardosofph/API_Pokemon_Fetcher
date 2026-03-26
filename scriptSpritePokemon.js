@@ -1,7 +1,7 @@
-async function catchSpriteAndSetInHtml(){
+async function fetchAndDisplayPokemon(){
 
-    resultadosDiv = document.getElementById('resultadosDiv');
-    resultadosDiv.style.display = "none";
+    const resultsContainer = document.getElementById('resultadosDiv');
+    resultsContainer.style.display = "none";
 
     const loadingGif = document.getElementById('loading');
     loadingGif.style.display = "block";
@@ -10,21 +10,21 @@ async function catchSpriteAndSetInHtml(){
         var pokemonNameValue = document.getElementById("pokemonNameInput").value.trim();
         pokemonNameValue = pokemonNameValue.toLowerCase();
         if(pokemonNameValue === ''){
-            alert("O campo não pode estar vazio!");
+            alert("This field cannot be empty!");
             return
         }
 
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonNameValue}`);
         
         if (!response.ok){
-            alert('Nenhum Pokémon encontrado!');
+            alert('No pokémon found!');
             throw new Error("Could not fetch resource");
         }
 
         const data = await response.json();
         console.log(data);
 
-        resultadosDiv.style.display = "block";
+        resultsContainer.style.display = "block";
 
         const pokemonSprite = data.sprites.front_default;
         const imgElement = document.getElementById('pokemonSprite');
@@ -40,11 +40,16 @@ async function catchSpriteAndSetInHtml(){
         pokemonIdElement.textContent = `Id: ${pokemonId}`;
 
         const pokemonTypes = data.types.map(tipo => tipo.type.name);
+        const pokemonTypesFormatted = pokemonTypes.join(', ');
         const pokemonTypesElement = document.getElementById('pokemonTypes');
-        pokemonTypesElement.textContent = `Types: ${pokemonTypes}`;
 
+        if(pokemonTypes.length > 1){
+            pokemonTypesElement.textContent = `Types: ${pokemonTypesFormatted}`;
+        }
+        else{
+            pokemonTypesElement.textContent = `Type: ${pokemonTypesFormatted}`;
+        }
 
-        document.getElementById('pokemonTypes').textContent = pokemonTypes;
     }
 
     catch(error){
@@ -59,7 +64,7 @@ async function catchSpriteAndSetInHtml(){
 const pokemonName = document.getElementById('pokemonNameInput');
 pokemonName.addEventListener("keydown", function (event) { 
     if (event.key === "Enter") {
-        catchSpriteAndSetInHtml();
+        fetchAndDisplayPokemon();
         event.preventDefault();
     }
 });
