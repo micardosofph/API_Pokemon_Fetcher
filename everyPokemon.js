@@ -1,3 +1,78 @@
+const pokemonTypesAndColor = [
+  {
+    "name": "normal",
+    "color": "#BBBBAF"
+  },
+  {
+    "name": "fighting",
+    "color": "#A65842"
+  },
+  {
+    "name": "flying",
+    "color": "https://pokeapi.co/api/v2/type/3/"
+  },
+  {
+    "name": "poison",
+    "color": "#A75C9F"
+  },
+  {
+    "name": "ground",
+    "color": "#E7C45E"
+  },
+  {
+    "name": "rock",
+    "color": "#CEBC72"
+  },
+  {
+    "name": "bug",
+    "color": "#C3D21F"
+  },
+  {
+    "name": "ghost",
+    "color": "#7975D6"
+  },
+  {
+    "name": "steel",
+    "color": "https://pokeapi.co/api/v2/type/9/"
+  },
+  {
+    "name": "fire",
+    "color": "#F75141"
+  },
+  {
+    "name": "water",
+    "color": "#55AEFE"
+  },
+  {
+    "name": "grass",
+    "color": "#82C649"
+  },
+  {
+    "name": "electric",
+    "color": "#FB65B4"
+  },
+  {
+    "name": "psychic",
+    "color": "https://pokeapi.co/api/v2/type/14/"
+  },
+  {
+    "name": "ice",
+    "color": "#96F0FE"
+  },
+  {
+    "name": "dragon",
+    "color": "#8974FF"
+  },
+  {
+    "name": "dark",
+    "color": "#8C6754"
+  },
+  {
+    "name": "fairy",
+    "color": "https://pokeapi.co/api/v2/type/18/"
+  }
+]
+
 let currentPage = 1;
 const limit = 20;
 
