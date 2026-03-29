@@ -1,137 +1,89 @@
-const pokemonTypesAndColor = [
-  {
-    "name": "normal",
-    "color": "#BBBBAF"
-  },
-  {
-    "name": "fighting",
-    "color": "#A65842"
-  },
-  {
-    "name": "flying",
-    "color": "79A4FF"
-  },
-  {
-    "name": "poison",
-    "color": "#A75C9F"
-  },
-  {
-    "name": "ground",
-    "color": "#E7C45E"
-  },
-  {
-    "name": "rock",
-    "color": "#CEBC72"
-  },
-  {
-    "name": "bug",
-    "color": "#C3D21F"
-  },
-  {
-    "name": "ghost",
-    "color": "#7975D6"
-  },
-  {
-    "name": "steel",
-    "color": "#C3C0DB"
-  },
-  {
-    "name": "fire",
-    "color": "#F75141"
-  },
-  {
-    "name": "water",
-    "color": "#55AEFE"
-  },
-  {
-    "name": "grass",
-    "color": "#82C649"
-  },
-  {
-    "name": "electric",
-    "color": "#FB65B4"
-  },
-  {
-    "name": "psychic",
-    "color": "#F362B1"
-  },
-  {
-    "name": "ice",
-    "color": "#96F0FE"
-  },
-  {
-    "name": "dragon",
-    "color": "#8974FF"
-  },
-  {
-    "name": "dark",
-    "color": "#8C6754"
-  },
-  {
-    "name": "fairy",
-    "color": "#FAADFF"
-  }
-]
+const typeColors = {
+    normal: "#BBBBAF",
+    fighting: "#A65842",
+    flying: "#79A4FF",
+    poison: "#A75C9F",
+    ground: "#E7C45E",
+    rock: "#CEBC72",
+    bug: "#C3D21F",
+    ghost: "#7975D6",
+    steel: "#C3C0DB",
+    fire: "#F75141",
+    water: "#55AEFE",
+    grass: "#82C649",
+    electric: "#FB65B4",
+    psychic: "#F362B1",
+    ice: "#96F0FE",
+    dragon: "#8974FF",
+    dark: "#8C6754",
+    fairy: "#FAADFF"
+};
 
 let currentPage = 1;
 const limit = 20;
 
 async function fetchAndRenderPokemons() {
-  const grid = document.getElementById('pokemonGrid');
-  grid.innerHTML = '<p>Loading pokémon...</p>';
-  const offset = (currentPage - 1) * limit;
-  const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+    const grid = document.getElementById('pokemonGrid');
+    
+    // 1. Cria os Skeletons (20 cartões pulsando)
+    grid.innerHTML = Array(limit).fill('<div class="skeleton-card"></div>').join('');
 
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const offset = (currentPage - 1) * limit;
+    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
 
-    grid.innerHTML = '';
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
 
-    for (const pokemonBase of data.results) {
-      await createPokemonCard(pokemonBase.url);
+        // 2. Busca todos os detalhes em paralelo (Muito mais rápido!)
+        const pokemonPromises = data.results.map(pokemonBase => fetchPokemonDetails(pokemonBase.url));
+        const allPokemonData = await Promise.all(pokemonPromises);
+
+        // 3. Limpa os skeletons e renderiza os dados reais
+        grid.innerHTML = '';
+        allPokemonData.forEach(pokemon => {
+            renderPokemonCardIntoGrid(pokemon);
+        });
+
+        // Interface
+        document.getElementById('pageIndicator').textContent = `Page ${currentPage}`;
+        document.getElementById('prevBtn').disabled = currentPage === 1;
+
+    } catch (error) {
+        console.error("Erro:", error);
+        grid.innerHTML = '<p>Error loading Pokémons.</p>';
     }
-
-    // Atualiza o número da página na tela
-    document.getElementById('pageIndicator').textContent = `Page ${currentPage}`;
-
-    // Desabilita o botão "Previous" se estiver na página 1
-    document.getElementById('prevBtn').disabled = currentPage === 1;
-
-  } catch (error) {
-    console.error("Error fetching Pokémons:", error);
-    grid.innerHTML = '<p>Error loading Pokémons. Please try again.</p>';
-  }
-
-
 }
 
-async function createPokemonCard(url) {
-  const response = await fetch(url);
-  const pokemon = await response.json();
-  
-  const card = document.createElement('div');
-  card.className = 'pokemon-card';
-  const pokedexNumber = pokemon.id.toString().padStart(4, '0'); // Vira "001"
-  
-  // Formatando os tipos (com o nosso join e singular/plural)
-  const types = pokemon.types.map(t => t.type.name);
-  const typeLabel = types.length > 1 ? 'Types' : 'Type';
+async function fetchPokemonDetails(url) {
+    const response = await fetch(url);
+    return await response.json();
+}
 
-  card.innerHTML = `
+function renderPokemonCardIntoGrid(pokemon) {
+    const grid = document.getElementById('pokemonGrid');
+    const card = document.createElement('div');
+    card.className = 'pokemon-card';
+
+    // Badges dos Tipos
+    const typesHTML = pokemon.types.map(t => {
+        const color = typeColors[t.type.name] || '#ccc';
+        return `<span class="type-badge" style="background-color: ${color};">${t.type.name}</span>`;
+    }).join('');
+
+    card.innerHTML = `
         <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
-        <h3>#${pokedexNumber}</h3>
+        <h3>#${pokemon.id.toString().padStart(4, '0')}</h3>
         <p class="name">${pokemon.name}</p>
-        <p class="types"><strong>${typeLabel}:</strong> ${types.join(', ')}</p>
+        <div class="pokemonCard-types">${typesHTML}</div>
     `;
 
-  document.getElementById('pokemonGrid').appendChild(card);
+    grid.appendChild(card);
 }
 
 function changePage(step) {
-  currentPage += step;
-  fetchAndRenderPokemons();
+    currentPage += step;
+    fetchAndRenderPokemons();
 }
 
-// Inicia a busca assim que a página carrega
 fetchAndRenderPokemons();
