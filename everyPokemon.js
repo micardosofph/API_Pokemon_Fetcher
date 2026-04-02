@@ -11,7 +11,7 @@ const typeColors = {
     fire: "#F75141",
     water: "#55AEFE",
     grass: "#82C649",
-    electric: "#FB65B4",
+    electric: "#FBE33B",
     psychic: "#F362B1",
     ice: "#96F0FE",
     dragon: "#8974FF",
@@ -19,38 +19,43 @@ const typeColors = {
     fairy: "#FAADFF"
 };
 
+let allPokemonList = []; // Lista com {name, url} de todos os ~1300 pokemons
 let currentPage = 1;
 const limit = 20;
 
-async function fetchAndRenderPokemons() {
+
+// Função que roda UMA VEZ ao carregar a página
+async function init() {
+    // A URL correta deve ser uma string única e limpa
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1800');
+    const data = await response.json();
+    allPokemonList = data.results;
+    fetchAndRenderPokemons();
+}
+
+async function fetchAndRenderPokemons(filteredList = null) {
     const grid = document.getElementById('pokemonGrid');
-    
-    // 1. Cria os Skeletons (20 cartões pulsando)
     grid.innerHTML = Array(limit).fill('<div class="skeleton-card"></div>').join('');
 
     const offset = (currentPage - 1) * limit;
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+
+    // Se houver lista filtrada (busca), usa ela. Se não, usa a lista global.
+    const sourceList = filteredList || allPokemonList;
+    const paginatedItems = sourceList.slice(offset, offset + limit);
 
     try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        // 2. Busca todos os detalhes em paralelo (Muito mais rápido!)
-        const pokemonPromises = data.results.map(pokemonBase => fetchPokemonDetails(pokemonBase.url));
+        const pokemonPromises = paginatedItems.map(p => fetchPokemonDetails(p.url));
         const allPokemonData = await Promise.all(pokemonPromises);
 
-        // 3. Limpa os skeletons e renderiza os dados reais
         grid.innerHTML = '';
-        allPokemonData.forEach(pokemon => {
-            renderPokemonCardIntoGrid(pokemon);
-        });
+        allPokemonData.forEach(pokemon => renderPokemonCardIntoGrid(pokemon));
 
-        // Interface
+        // Atualiza interface
         document.getElementById('pageIndicator').textContent = `Page ${currentPage}`;
         document.getElementById('prevBtn').disabled = currentPage === 1;
+        document.getElementById('nextBtn').disabled = offset + limit >= sourceList.length;
 
     } catch (error) {
-        console.error("Erro:", error);
         grid.innerHTML = '<p>Error loading Pokémons.</p>';
     }
 }
@@ -86,4 +91,4 @@ function changePage(step) {
     fetchAndRenderPokemons();
 }
 
-fetchAndRenderPokemons();
+init();
