@@ -30,6 +30,7 @@ svg {
 
 .inputNomePokemon {
     padding: .25rem .5rem;
+    width: 50%;
     height: 2rem;
     border-radius: 1rem;
     border: none;
@@ -150,6 +151,13 @@ a:visited {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
     animation: loading 1.5s infinite;
+}
+
+.displayFlex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 @keyframes loading {
